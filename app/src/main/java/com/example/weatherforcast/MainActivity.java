@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
         mWeatherPagerAdapter = new weatherPagerAdapter(getSupportFragmentManager(),names);
 
         // Set up the ViewPager with the sections adapter.
-        mViewPager = (ViewPager) findViewById(R.id.container);
+        mViewPager = (ViewPager) findViewById(R.id.viewPager);
         mViewPager.setAdapter(mWeatherPagerAdapter);
 
 
