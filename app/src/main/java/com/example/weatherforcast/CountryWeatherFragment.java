@@ -9,7 +9,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +27,7 @@ public class CountryWeatherFragment extends Fragment {
     private static final String PARAM_COUNTRY_NAME = "country_name";
     private String countryName;
     private CountryInfo countryInfo;
-    private List<weatherByDate> dayData;
+    private List<WeatherByDate> dayData;
     private OnFragmentInteractionListener mListener;
 
     public CountryWeatherFragment() {
@@ -61,8 +60,6 @@ public class CountryWeatherFragment extends Fragment {
     }
     private void getInfoForCountry(){
         dayData = new ArrayList<>();
-        dayData.add(new weatherByDate("2015-05-07","dasda","15C",66 ));
-        dayData.add(new weatherByDate("2015-05-08","qrqweqw","13C",80 ));
     }
 
 

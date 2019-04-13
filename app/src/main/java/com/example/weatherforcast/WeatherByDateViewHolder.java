@@ -6,13 +6,13 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class weatherByDateViewHolder extends RecyclerView.ViewHolder {
+public class WeatherByDateViewHolder extends RecyclerView.ViewHolder {
     public ImageView icon;
     public TextView date;
     public TextView humidity;
     public TextView temperature;
 
-    public weatherByDateViewHolder(@NonNull View itemView) {
+    public WeatherByDateViewHolder(@NonNull View itemView) {
         super(itemView);
         this.icon = itemView.findViewById(R.id.recyclerIcon);
         this.date = itemView.findViewById(R.id.recyclerDate);

@@ -8,11 +8,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class weatherPagerAdapter extends FragmentPagerAdapter {
+public class WeatherPagerAdapter extends FragmentPagerAdapter {
 
     private ArrayList<String> countryNames;
     //private Map<String, CountryInfo> fullData;
-    public weatherPagerAdapter(FragmentManager fm, ArrayList<String> countryNames) {
+    public WeatherPagerAdapter(FragmentManager fm, ArrayList<String> countryNames) {
         super(fm);
         this.countryNames = countryNames;
         //fullData = new HashMap<>();

@@ -10,25 +10,25 @@ import com.bumptech.glide.Glide;
 
 import java.util.List;
 
-public class Adapter extends RecyclerView.Adapter<weatherByDateViewHolder> {
+public class Adapter extends RecyclerView.Adapter<WeatherByDateViewHolder> {
 
-    private List<weatherByDate> data;
-    public Adapter(List<weatherByDate> data){
+    private List<WeatherByDate> data;
+    public Adapter(List<WeatherByDate> data){
         this.data = data;
     }
 
     @NonNull
     @Override
-    public weatherByDateViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public WeatherByDateViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.weather_by_day_layout, viewGroup, false);
 
-        return new weatherByDateViewHolder(view);
+        return new WeatherByDateViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull weatherByDateViewHolder itemViewHolder, int i) {
+    public void onBindViewHolder(@NonNull WeatherByDateViewHolder itemViewHolder, int i) {
 
-        weatherByDate day = data.get(i);
+        WeatherByDate day = data.get(i);
         Glide.with(itemViewHolder.itemView.getContext()).load(day.getIconAddress()).into(itemViewHolder.icon);
         itemViewHolder.temperature.setText(day.getTemperature());
         itemViewHolder.humidity.setText(day.getHumidity());
