@@ -10,6 +10,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,6 +20,13 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -36,21 +44,44 @@ public class MainActivity extends AppCompatActivity {
      * The {@link ViewPager} that will host the section contents.
      */
     private ViewPager mViewPager;
+    private Retrofit retrofit;
+    private CountryNameAPI api;
+    private ArrayList<String> countryNames;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        countryNames = new ArrayList<>();
+
+        retrofit = new Retrofit.Builder()
+                .baseUrl("https://restcountries.eu/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        api = retrofit.create(CountryNameAPI.class);
 
 
-        ArrayList<String> names = new ArrayList<String>();
-        names.add("Georgia");
-        names.add("US");
-        names.add("Canada");
-        names.add("UK");
+        api.getCountries("name").enqueue(new Callback<List<Country>>() {
+            @Override
+            public void onResponse(Call<List<Country>> call, Response<List<Country>> response) {
+
+                if(response.isSuccessful()){
+                    for (Country country : response.body()){
+                        countryNames.add(country.getName());
+                    }
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<List<Country>> call, Throwable t) {
+                Log.d("response_TAG","onFailure");
+            }
+        });
+
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
-        mWeatherPagerAdapter = new weatherPagerAdapter(getSupportFragmentManager(),names);
+        mWeatherPagerAdapter = new weatherPagerAdapter(getSupportFragmentManager(),countryNames);
 
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.viewPager);
