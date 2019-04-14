@@ -1,12 +1,14 @@
 package com.example.weatherforcast;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -45,7 +47,7 @@ public class CountryWeatherFragment extends Fragment {
     private Retrofit retrofit;
     private CountryInfoAPI api;
     private CountryInfo countryInfo;
-    private int tintId = R.color.dayTint;
+    private int tintId;
     private int backgrowndGradientId = R.drawable.day_gradient_background;
     private OnFragmentInteractionListener mListener;
 
@@ -96,7 +98,7 @@ public class CountryWeatherFragment extends Fragment {
                         tintId = R.color.nightTint;
                         backgrowndGradientId = R.drawable.night_gradient_background;
                     }else{
-                        tintId = R.color.dayTint;
+                        tintId =R.color.dayTint;
                         backgrowndGradientId = R.drawable.day_gradient_background;
                     }
                 }
@@ -125,6 +127,9 @@ public class CountryWeatherFragment extends Fragment {
     }
 
     private void setUpLayout(View rootView){
+
+        ColorStateList tint =ContextCompat.getColorStateList(rootView.getContext(),R.color.nightTint);
+
         ((TextView)rootView.findViewById(R.id.countryName)).setText(countryInfo.getCountryName());
         ((TextView)rootView.findViewById(R.id.timeAndDate)).setText(countryInfo.getLocalTime());
         ((TextView)rootView.findViewById(R.id.temperature)).setText(countryInfo.getCurrentTemp());
@@ -133,9 +138,9 @@ public class CountryWeatherFragment extends Fragment {
         ((TextView)rootView.findViewById(R.id.humidityValue)).setText(countryInfo.getCurrentHumidity());
         ((TextView)rootView.findViewById(R.id.windspeedValue)).setText(countryInfo.getCurrentWindSpeed());
         ((TextView)rootView.findViewById(R.id.day_night_value)).setText(countryInfo.getDayAndNight());
-        ((ImageView)rootView.findViewById(R.id.precipitationIcon)).setColorFilter(tintId);
-        ((ImageView)rootView.findViewById(R.id.humidityIcon)).setColorFilter(tintId);
-        ((ImageView)rootView.findViewById(R.id.windspeedIcon)).setColorFilter(tintId);
+        ((ImageView)rootView.findViewById(R.id.precipitationIcon)).setImageTintList(tint);
+        ((ImageView)rootView.findViewById(R.id.humidityIcon)).setImageTintList(tint);
+        ((ImageView)rootView.findViewById(R.id.windspeedIcon)).setImageTintList(tint);
         rootView.findViewById(R.id.mainContentLayout).setBackgroundResource(backgrowndGradientId);
 
         Glide.with(rootView.getContext()).load(countryInfo.getCurrentWeatherIcon())
