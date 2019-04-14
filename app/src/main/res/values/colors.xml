@@ -7,6 +7,6 @@
     <color name="nightTint">#394AA5</color>
     <color name="nightGradientStart">#15237B</color>
     <color name="nightGradientEnd">#4CA2F0</color>
-    <color name="dayGradientStart">#FF005D</color>
+    <color name="dayGradientStart">#FF6122</color>
     <color name="dayGradientEnd">#FFCD5F</color>
 </resources>
