@@ -3,7 +3,7 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
-    <color name="dayTint">#F3FFCA22</color>
+    <color name="dayTint">#FFEB3B</color>
     <color name="nightTint">#394AA5</color>
     <color name="nightGradientStart">#15237B</color>
     <color name="nightGradientEnd">#4CA2F0</color>

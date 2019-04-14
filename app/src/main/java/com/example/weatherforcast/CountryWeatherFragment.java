@@ -47,9 +47,8 @@ public class CountryWeatherFragment extends Fragment {
     private Retrofit retrofit;
     private CountryInfoAPI api;
     private CountryInfo countryInfo;
-    private int tintId;
+    private int tintId = R.color.dayTint;
     private int backgrowndGradientId = R.drawable.day_gradient_background;
-    private OnFragmentInteractionListener mListener;
 
     public CountryWeatherFragment() {
         // Required empty public constructor
@@ -86,7 +85,7 @@ public class CountryWeatherFragment extends Fragment {
                 .build();
         api = retrofit.create(CountryInfoAPI.class);
 
-        api.getCountries(WEATHER_SERVER_KEY, countryName, DEFAULT_DAY_COUNT).enqueue(new Callback<CountryInfo>() {
+        api.getCountryInfo(WEATHER_SERVER_KEY, countryName, DEFAULT_DAY_COUNT).enqueue(new Callback<CountryInfo>() {
             @Override
             public void onResponse(Call<CountryInfo> call, Response<CountryInfo> response) {
 
@@ -128,7 +127,7 @@ public class CountryWeatherFragment extends Fragment {
 
     private void setUpLayout(View rootView){
 
-        ColorStateList tint =ContextCompat.getColorStateList(rootView.getContext(),R.color.nightTint);
+        ColorStateList tint =ContextCompat.getColorStateList(rootView.getContext(),tintId);
 
         ((TextView)rootView.findViewById(R.id.countryName)).setText(countryInfo.getCountryName());
         ((TextView)rootView.findViewById(R.id.timeAndDate)).setText(countryInfo.getLocalTime());
@@ -149,39 +148,26 @@ public class CountryWeatherFragment extends Fragment {
 
         RecyclerView weatherByDateView = rootView.findViewById(R.id.weatherByDate);
         Adapter recyclerAdapter = new Adapter(countryInfo.getWeatherList());
-        weatherByDateView.setLayoutManager(new LinearLayoutManager(this.getContext()));
+        weatherByDateView.setLayoutManager(new LinearLayoutManager(rootView.getContext()));
         weatherByDateView.setAdapter(recyclerAdapter);
     }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
+//    @Override
+//    public void onAttach(Context context) {
+//        super.onAttach(context);
+//        if (context instanceof OnFragmentInteractionListener) {
+//            mListener = (OnFragmentInteractionListener) context;
+//        } else {
+//            throw new RuntimeException(context.toString()
+//                    + " must implement OnFragmentInteractionListener");
+//        }
+//    }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
+
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
-    }
+
 }
