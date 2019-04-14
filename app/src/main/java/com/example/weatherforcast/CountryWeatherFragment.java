@@ -1,6 +1,7 @@
 package com.example.weatherforcast;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -65,7 +66,6 @@ public class CountryWeatherFragment extends Fragment {
         Bundle args = new Bundle();
         args.putString(PARAM_COUNTRY_NAME, name);
         fragment.setArguments(args);
-        fragment.getInfoForCountry();
         return fragment;
     }
 
@@ -74,7 +74,7 @@ public class CountryWeatherFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             countryName = getArguments().getString(PARAM_COUNTRY_NAME);
-            getInfoForCountry();
+
         }
     }
     private void getInfoForCountry(){
@@ -83,12 +83,13 @@ public class CountryWeatherFragment extends Fragment {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         api = retrofit.create(CountryInfoAPI.class);
-
-        api.getCountries(WEATHER_SERVER_KEY, countryName, DEFAULT_DAY_COUNT).enqueue(new Callback<CountryInfo>() {
+        countryInfo = new CountryInfo();
+        api.getCountryInfo(WEATHER_SERVER_KEY, countryName, DEFAULT_DAY_COUNT).enqueue(new Callback<CountryInfo>() {
             @Override
             public void onResponse(Call<CountryInfo> call, Response<CountryInfo> response) {
 
                 if(response.isSuccessful()){
+                    Log.d("response",response.body().toString());
                     countryInfo = response.body();
                     if(countryInfo == null) countryInfo = new CountryInfo();
 
@@ -117,7 +118,7 @@ public class CountryWeatherFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-
+        getInfoForCountry();
         View rootView = inflater.inflate(R.layout.fragment_country_weather, container, false);
         setUpLayout(rootView);
 
@@ -133,7 +134,7 @@ public class CountryWeatherFragment extends Fragment {
         ((TextView)rootView.findViewById(R.id.humidityValue)).setText(countryInfo.getCurrentHumidity());
         ((TextView)rootView.findViewById(R.id.windspeedValue)).setText(countryInfo.getCurrentWindSpeed());
         ((TextView)rootView.findViewById(R.id.day_night_value)).setText(countryInfo.getDayAndNight());
-        ((ImageView)rootView.findViewById(R.id.precipitationIcon)).setColorFilter(tintId);
+        ((ImageView)rootView.findViewById(R.id.precipitationIcon)).setImageTintList(ColorStateList.valueOf(tintId));
         ((ImageView)rootView.findViewById(R.id.humidityIcon)).setColorFilter(tintId);
         ((ImageView)rootView.findViewById(R.id.windspeedIcon)).setColorFilter(tintId);
         rootView.findViewById(R.id.mainContentLayout).setBackgroundResource(backgrowndGradientId);
@@ -148,7 +149,7 @@ public class CountryWeatherFragment extends Fragment {
         weatherByDateView.setAdapter(recyclerAdapter);
     }
 
-    @Override
+   /* @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         if (context instanceof OnFragmentInteractionListener) {
@@ -157,7 +158,7 @@ public class CountryWeatherFragment extends Fragment {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
         }
-    }
+    }*/
 
     @Override
     public void onDetach() {

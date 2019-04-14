@@ -8,5 +8,5 @@ import retrofit2.http.Query;
 
 public interface CountryInfoAPI {
     @GET("v1/forecast.json")
-    Call<CountryInfo> getCountries(@Query("key") String key, @Query("q") String country, @Query("days") String numDays);
+    Call<CountryInfo> getCountryInfo(@Query("key") String key, @Query("q") String country, @Query("days") String numDays);
 }

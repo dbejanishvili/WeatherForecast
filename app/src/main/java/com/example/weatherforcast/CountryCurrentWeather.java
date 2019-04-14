@@ -23,7 +23,7 @@ public class CountryCurrentWeather {
 
 
     public String getTemperature() {
-        return Double.toString(temperature) + " &#8451";
+        return Double.toString(temperature) + " \u2103";
     }
 
     public String  getWindSpeed() {
@@ -44,6 +44,6 @@ public class CountryCurrentWeather {
     }
 
     public String getPerceivedTemp(){
-        return Double.toString(perceivedTemp) + " &#8451";
+        return Double.toString(perceivedTemp) + " \u2103";
     }
 }

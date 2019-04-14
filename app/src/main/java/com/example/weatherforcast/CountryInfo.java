@@ -69,7 +69,7 @@ public class CountryInfo implements Serializable{
     public String getCurrentWeatherIcon(){
         if(curWeather==null)
             return ERROR_ICON_ADDRESS;
-        return curWeather.getIconAddress();
+        return "http://" + curWeather.getIconAddress();
     }
 
     public String getPerceivedTemp(){
@@ -81,11 +81,13 @@ public class CountryInfo implements Serializable{
     public String getDayAndNight(){
         if(forecast==null)
             return "N/A";
+        if(forecast.getWeatherList()==null)
+            return "N/A";
         if(forecast.getWeatherList().size()>0){
             WeatherByDate w = forecast.getWeatherList().get(0);
-            return w.getSunrise() + " " + w.getSunset();
+            return w.getSunrise() + "-" + w.getSunset();
         }
-        return "6:00 AM 6:00 PM";
+        return "6:00 AM-6:00 PM";
     }
 
     public List<WeatherByDate> getWeatherList(){

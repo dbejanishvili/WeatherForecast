@@ -23,11 +23,11 @@ public class WeatherByDate {
     }
 
     public String getIconAddress() {
-        return dayInfo.condition.iconAddress;
+        return "http://" + dayInfo.condition.iconAddress;
     }
 
     public String getTemperature() {
-        return Double.toString(dayInfo.avgTemp) + " &#8451";
+        return Double.toString(dayInfo.avgTemp) + " ℃";
     }
 
     public String getSunrise(){
