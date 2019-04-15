@@ -1,4 +1,4 @@
 <resources>
     <string name="app_name">WeatherForcast</string>
-
+    <string name="not_assigned">N/A</string>
 </resources>

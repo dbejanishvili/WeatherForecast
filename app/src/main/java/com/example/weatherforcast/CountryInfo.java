@@ -26,6 +26,8 @@ public class CountryInfo implements Serializable{
     public String getLocalTime(){
         if(loc==null)
             return "N/A";
+        if(loc.getLocalTime()==null)
+            return "N/A";
 
         String dateTime = loc.getLocalTime();
         String[] str = dateTime.split(" ");
@@ -56,6 +58,8 @@ public class CountryInfo implements Serializable{
     public String getCurrentPrecip(){
         if(curWeather==null)
             return "N/A";
+        if(curWeather.getPrecip().length()>5)
+            return curWeather.getPrecip().substring(0,5);
         return curWeather.getPrecip();
     }
 
@@ -75,7 +79,7 @@ public class CountryInfo implements Serializable{
     public String getPerceivedTemp(){
         if(curWeather==null)
             return "N/A";
-        return curWeather.getPerceivedTemp();
+        return "Perceived " + curWeather.getPerceivedTemp();
     }
 
     public String getDayAndNight(){
@@ -94,21 +98,15 @@ public class CountryInfo implements Serializable{
 
         if(forecast==null)
             return new ArrayList<>();
+        if (forecast.getWeatherList()==null)
+            return new ArrayList<>();
         return forecast.getWeatherList();
     }
 
     public TimeOfDay getTimeOfDay(){
         if(loc==null)
             return TimeOfDay.DAY;
-
-        String dateTime = loc.getLocalTime();
-        String[] str = dateTime.split(" ");
-        String[] timeStr = str[1].split(":");
-        int hour = Integer.parseInt(timeStr[0]);
-        if(hour>= 6 && hour<18)
-            return TimeOfDay.DAY;
-
-        return TimeOfDay.NIGHT;
+        return curWeather.getTimeOfDay();
     }
 
 }

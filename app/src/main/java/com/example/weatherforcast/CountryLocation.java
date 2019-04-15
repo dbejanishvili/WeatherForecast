@@ -12,6 +12,8 @@ public class CountryLocation implements Serializable {
     private String localTime;
 
     public String getCountryName(){
+        if(countryName == null)
+            return "N/A";
         return countryName;
     }
 

@@ -10,10 +10,10 @@ import com.bumptech.glide.Glide;
 
 import java.util.List;
 
-public class Adapter extends RecyclerView.Adapter<WeatherByDateViewHolder> {
+public class RecyclerViewAdapter extends RecyclerView.Adapter<WeatherByDateViewHolder> {
 
     private List<WeatherByDate> data;
-    public Adapter(List<WeatherByDate> data){
+    public RecyclerViewAdapter(List<WeatherByDate> data){
         this.data = data;
     }
 
