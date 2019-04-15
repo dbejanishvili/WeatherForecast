@@ -9,4 +9,5 @@
     <color name="nightGradientEnd">#4CA2F0</color>
     <color name="dayGradientStart">#FF6122</color>
     <color name="dayGradientEnd">#FFCD5F</color>
+    <color name="humidityColor">#00BCD4</color>
 </resources>
